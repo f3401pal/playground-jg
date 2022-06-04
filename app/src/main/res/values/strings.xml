@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">BalanceTrack</string>
+
+    <string name="desp_action_add">Add</string>
+    <string name="title_add_transaction">Add Transaction</string>
+    <string name="label_chip_income">Income</string>
+    <string name="label_chip_expense">Expense</string>
+    <string name="hint_description">Description</string>
+    <string name="hint_amount">Amount</string>
+    <string name="action_save">Save</string>
+
+    <string name="error_empty_description">Description is required</string>
+    <string name="error_zero_amount">Cannot save zero amount</string>
+    <string name="error_not_digit">Invalid value</string>
 </resources>

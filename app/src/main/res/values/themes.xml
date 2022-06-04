@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.BalanceTrack" parent="android:Theme.Material.Light.NoActionBar">
+    <style name="Theme.BalanceTrack" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:colorPrimary">@color/purple_500</item>
         <item name="android:colorPrimaryDark">@color/purple_700</item>
         <item name="android:colorSecondary">@color/teal_200</item>
         <item name="android:colorAccent">@color/teal_200</item>
+    </style>
+
+    <style name="Widget.BalanceTrack.Chip.Choice" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.BalanceTrack.Chip.Choice</item>
+    </style>
+
+    <!-- Disabling elevation overlays because when chip's default background/surface
+         composite are combined with elevation overlays in a highly elevated dialog,
+         the resulting color becomes too light and causes contrast
+         issues. -->
+    <style name="ThemeOverlay.BalanceTrack.Chip.Choice" parent="">
+        <item name="elevationOverlayEnabled">false</item>
     </style>
 </resources>

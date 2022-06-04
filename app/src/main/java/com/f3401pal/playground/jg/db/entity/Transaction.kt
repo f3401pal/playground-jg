@@ -10,6 +10,7 @@ import java.time.LocalDateTime
 data class Transaction(
     @PrimaryKey(autoGenerate = true)
     val id: Int = -1,
+    val description: String,
     val amount: Float,
     @TypeConverters(LocalDataTimeConverter::class)
     val timestamp: LocalDateTime = LocalDateTime.now()
