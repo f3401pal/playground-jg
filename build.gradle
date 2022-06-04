@@ -1,6 +1,5 @@
 buildscript {
     ext {
-        compose_version = '1.1.1'
         timberVersion = '4.7.1'
         hilt_version = '2.41'
         lifcycle_version = '2.5.0-rc01'
