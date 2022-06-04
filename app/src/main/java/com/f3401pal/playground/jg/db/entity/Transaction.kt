@@ -4,6 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.f3401pal.playground.jg.db.LocalDataTimeConverter
+import com.f3401pal.playground.jg.ext.toDollarFormat
+import com.f3401pal.playground.jg.model.TransactionType
 import java.time.LocalDate
 import java.time.LocalDateTime
 import kotlin.math.absoluteValue
@@ -19,7 +21,8 @@ data class Transaction(
     val timestamp: LocalDateTime = LocalDateTime.now()
 )
 
-fun Transaction.displayAmount() =
-    if(amount.sign < 0) "— \$ ${amount.absoluteValue}" else "\$ ${amount.absoluteValue}"
+fun Transaction.type(): TransactionType = if(amount.sign < 0) TransactionType.Expense else TransactionType.Income
+
+fun Transaction.displayAmount() = amount.toDollarFormat()
 
 fun Transaction.date(): LocalDate = timestamp.toLocalDate()

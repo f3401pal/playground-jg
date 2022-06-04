@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -25,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class TransactionListFragment : Fragment() {
 
-    private val viewModel: TransactionListViewModel by viewModels()
+    private val viewModel: TransactionListViewModel by activityViewModels()
     private lateinit var viewBinding: FragmentTransactionListBinding
 
     override fun onCreateView(
@@ -42,7 +42,7 @@ class TransactionListFragment : Fragment() {
 
         val adapter = DaliyTransactionListAdapter()
         viewBinding.transactionList.adapter = adapter
-        viewModel.allTransactions.collectAfterCreated(viewLifecycleOwner) {
+        viewModel.daliyTransactions.collectAfterCreated(viewLifecycleOwner) {
             adapter.submitList(it)
         }
     }

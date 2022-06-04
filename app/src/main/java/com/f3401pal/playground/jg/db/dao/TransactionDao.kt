@@ -16,8 +16,4 @@ interface TransactionDao {
     @androidx.room.Transaction
     @Query("SELECT * FROM `transaction` ORDER BY timestamp DESC")
     fun queryTransactions(): Flow<List<Transaction>>
-
-    @androidx.room.Transaction
-    @Query("SELECT SUM(amount) FROM `transaction`")
-    fun calculateBalance(): Float
 }

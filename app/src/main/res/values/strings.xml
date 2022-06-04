@@ -12,4 +12,8 @@
     <string name="error_empty_description">Description is required</string>
     <string name="error_zero_amount">Cannot save zero amount</string>
     <string name="error_not_digit">Invalid value</string>
+
+    <string name="label_expenses">Expenses</string>
+    <string name="label_income">Income</string>
+    <string name="label_balance">Balance</string>
 </resources>

@@ -15,6 +15,12 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/balanceSummary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:name="com.f3401pal.playground.jg.fragment.BalanceSummaryFragment"
+                />
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/transactionList"
