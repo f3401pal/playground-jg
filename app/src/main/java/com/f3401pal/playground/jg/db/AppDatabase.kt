@@ -24,7 +24,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     companion object {
 
-        fun createAppDatabase(context: Context): AppDatabase {
+        fun newInstance(context: Context): AppDatabase {
             return Room.databaseBuilder(context, AppDatabase::class.java, DB_NAME)
                 .build()
         }

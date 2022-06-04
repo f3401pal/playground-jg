@@ -15,16 +15,14 @@ class MainActivity : AppCompatActivity() {
 
     private val mainViewModel: MainViewModel by viewModels()
 
-    private val addTransactionBottomSheet = AddTransactionBottomSheetFragment()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main).apply {
             this.viewModel = mainViewModel
 
             actionAdd.setOnClickListener {
-                if(!addTransactionBottomSheet.isVisible)
-                    addTransactionBottomSheet.showNow(supportFragmentManager, AddTransactionBottomSheetFragment.TAG)
+                if(supportFragmentManager.findFragmentByTag(AddTransactionBottomSheetFragment.TAG) == null)
+                    AddTransactionBottomSheetFragment().showNow(supportFragmentManager, AddTransactionBottomSheetFragment.TAG)
             }
         }
     }

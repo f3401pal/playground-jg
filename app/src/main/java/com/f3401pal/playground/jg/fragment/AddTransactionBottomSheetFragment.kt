@@ -10,10 +10,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import com.f3401pal.playground.jg.R
 import com.f3401pal.playground.jg.databinding.FragmentAddTransactionBinding
-import com.f3401pal.playground.jg.model.AddTransactionViewModel
-import com.f3401pal.playground.jg.model.Expense
-import com.f3401pal.playground.jg.model.Income
-import com.f3401pal.playground.jg.model.TransactionType
+import com.f3401pal.playground.jg.ext.collectAfterCreated
+import com.f3401pal.playground.jg.model.*
+import com.f3401pal.playground.jg.usecase.TransactionInputValidationResult
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,11 +36,11 @@ class AddTransactionBottomSheetFragment : BottomSheetDialogFragment() {
 
         viewBinding.viewModel = viewModel
 
-        var type: TransactionType = Income
+        var type: TransactionType = TransactionType.Income
         viewBinding.typeChipGroup.setOnCheckedStateChangeListener { _, checkedIds ->
             when(checkedIds.first()) {
-                R.id.incomeChip -> type = Income
-                R.id.expenseChip -> type = Expense
+                R.id.incomeChip -> type = TransactionType.Income
+                R.id.expenseChip -> type = TransactionType.Expense
             }
         }
 
@@ -56,29 +55,26 @@ class AddTransactionBottomSheetFragment : BottomSheetDialogFragment() {
         viewBinding.actionSave.setOnClickListener {
             val description = viewBinding.description.editText?.text?.toString()
             val amount = viewBinding.amount.editText?.text?.toString()
-            if(validateInputs(description, amount)) {
-                viewModel.saveTransaction(type, description.orEmpty(), amount?.toFloat() ?: 0f)
-                dismiss()
+            viewModel.saveTransaction(type, description, amount).collectAfterCreated(viewLifecycleOwner) {
+                setError(it)
+                if(it == TransactionInputValidationResult.Clear) dismiss()
             }
         }
     }
 
-    private fun validateInputs(description: String?, amount: String?): Boolean {
-        var valid = true
-        // description cannot be null or empty
-        if(description.isNullOrEmpty()) {
-            viewBinding.description.error = getString(R.string.error_empty_description)
-            valid = false
+    private fun setError(error: TransactionInputValidationResult) {
+        when(error) {
+            TransactionInputValidationResult.EmptyDescription ->
+                viewBinding.description.error = getString(R.string.error_empty_description)
+            TransactionInputValidationResult.EmptyAmount ->
+                viewBinding.amount.error = getString(R.string.error_zero_amount)
+            TransactionInputValidationResult.InvalidAmount ->
+                viewBinding.amount.error = getString(R.string.error_not_digit)
+            TransactionInputValidationResult.Clear -> {
+                viewBinding.description.error = null
+                viewBinding.amount.error = null
+            }
         }
-        if(amount.isNullOrEmpty()) {
-            viewBinding.amount.error = getString(R.string.error_zero_amount)
-            valid = false
-        } else if(!amount.isDigitsOnly()) {
-            viewBinding.amount.error = getString(R.string.error_not_digit)
-            valid = false
-        }
-
-        return valid
     }
 
     companion object {

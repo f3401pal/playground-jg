@@ -9,7 +9,7 @@ import java.time.LocalDateTime
 @Entity
 data class Transaction(
     @PrimaryKey(autoGenerate = true)
-    val id: Int = -1,
+    val id: Int = 0,
     val description: String,
     val amount: Float,
     @TypeConverters(LocalDataTimeConverter::class)
