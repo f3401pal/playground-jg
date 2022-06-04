@@ -1,6 +1,7 @@
 package com.f3401pal.playground.jg.db
 
 import androidx.room.TypeConverter
+import com.f3401pal.playground.jg.ext.toUtcEpochMilli
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -14,6 +15,6 @@ class LocalDataTimeConverter {
 
     @TypeConverter
     fun toTimestamp(dateTime: LocalDateTime): Long {
-        return dateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
+        return dateTime.toUtcEpochMilli()
     }
 }

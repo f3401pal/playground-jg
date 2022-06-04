@@ -34,8 +34,6 @@ class AddTransactionBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewBinding.viewModel = viewModel
-
         var type: TransactionType = TransactionType.Income
         viewBinding.typeChipGroup.setOnCheckedStateChangeListener { _, checkedIds ->
             when(checkedIds.first()) {

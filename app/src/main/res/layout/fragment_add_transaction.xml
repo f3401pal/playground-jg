@@ -3,16 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <import type="com.f3401pal.playground.jg.model.AddTransactionViewModel" />
-
-        <variable
-            name="viewModel"
-            type="com.f3401pal.playground.jg.model.AddTransactionViewModel" />
-
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

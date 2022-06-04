@@ -3,20 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <import type="com.f3401pal.playground.jg.model.MainViewModel" />
-
-        <variable
-            name="viewModel"
-            type="com.f3401pal.playground.jg.model.MainViewModel" />
-
-    </data>
-
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/purple_200"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,7 +16,12 @@
             android:orientation="vertical">
 
 
-
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/transactionList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:name="com.f3401pal.playground.jg.fragment.TransactionListFragment"
+                />
 
         </LinearLayout>
 
@@ -33,6 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:backgroundTint="@color/teal_200"
             android:src="@drawable/ic_baseline_add_24"
             android:contentDescription="@string/desp_action_add"
             android:layout_gravity="bottom|end"
