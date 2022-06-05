@@ -5,12 +5,6 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 
-fun <T> Flow<T>.collectAfterStarted(lifecycleOwner: LifecycleOwner, runBlock: (T) -> Unit) {
-    lifecycleOwner.lifecycleScope.launchWhenStarted {
-        collect { runBlock(it) }
-    }
-}
-
 fun <T> Flow<T>.collectAfterCreated(lifecycleOwner: LifecycleOwner, runBlock: (T) -> Unit) {
     lifecycleOwner.lifecycleScope.launchWhenCreated {
         collect { runBlock(it) }
