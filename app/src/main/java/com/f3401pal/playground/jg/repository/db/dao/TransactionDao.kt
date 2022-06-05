@@ -1,9 +1,9 @@
-package com.f3401pal.playground.jg.db.dao
+package com.f3401pal.playground.jg.repository.db.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.f3401pal.playground.jg.db.entity.Transaction
+import com.f3401pal.playground.jg.repository.db.entity.Transaction
 import kotlinx.coroutines.flow.Flow
 
 @Dao

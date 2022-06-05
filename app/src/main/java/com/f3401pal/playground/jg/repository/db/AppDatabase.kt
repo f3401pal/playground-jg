@@ -1,12 +1,12 @@
-package com.f3401pal.playground.jg.db
+package com.f3401pal.playground.jg.repository.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.f3401pal.playground.jg.db.dao.TransactionDao
-import com.f3401pal.playground.jg.db.entity.Transaction
+import com.f3401pal.playground.jg.repository.db.dao.TransactionDao
+import com.f3401pal.playground.jg.repository.db.entity.Transaction
 
 private const val DB_VERSION = 1
 private const val DB_NAME = "main_db"

@@ -1,14 +1,13 @@
-package com.f3401pal.playground.jg.db.entity
+package com.f3401pal.playground.jg.repository.db.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.f3401pal.playground.jg.db.LocalDataTimeConverter
+import com.f3401pal.playground.jg.domain.model.TransactionType
 import com.f3401pal.playground.jg.ext.toDollarFormat
-import com.f3401pal.playground.jg.model.TransactionType
+import com.f3401pal.playground.jg.repository.db.LocalDataTimeConverter
 import java.time.LocalDate
 import java.time.LocalDateTime
-import kotlin.math.absoluteValue
 import kotlin.math.sign
 
 @Entity

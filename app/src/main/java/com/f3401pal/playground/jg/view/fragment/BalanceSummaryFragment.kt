@@ -1,4 +1,4 @@
-package com.f3401pal.playground.jg.fragment
+package com.f3401pal.playground.jg.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,15 +9,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.f3401pal.playground.jg.R
 import com.f3401pal.playground.jg.databinding.FragmentBalanceSummaryBinding
+import com.f3401pal.playground.jg.domain.TransactionListViewModel
 import com.f3401pal.playground.jg.ext.collectAfterCreated
 import com.f3401pal.playground.jg.ext.toDollarFormat
-import com.f3401pal.playground.jg.model.TransactionListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
 class BalanceSummaryFragment : Fragment() {
 
+    // shared with TransactionListFragment
     private val viewModel: TransactionListViewModel by activityViewModels()
     private lateinit var viewBinding: FragmentBalanceSummaryBinding
 

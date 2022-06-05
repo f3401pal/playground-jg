@@ -1,18 +1,18 @@
-package com.f3401pal.playground.jg.fragment
+package com.f3401pal.playground.jg.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.text.isDigitsOnly
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import com.f3401pal.playground.jg.R
 import com.f3401pal.playground.jg.databinding.FragmentAddTransactionBinding
+import com.f3401pal.playground.jg.domain.AddTransactionViewModel
+import com.f3401pal.playground.jg.domain.model.TransactionInputValidationResult
+import com.f3401pal.playground.jg.domain.model.TransactionType
 import com.f3401pal.playground.jg.ext.collectAfterCreated
-import com.f3401pal.playground.jg.model.*
-import com.f3401pal.playground.jg.usecase.TransactionInputValidationResult
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -1,7 +1,7 @@
 package com.f3401pal.playground.jg.repository
 
-import com.f3401pal.playground.jg.db.AppDatabase
-import com.f3401pal.playground.jg.db.entity.Transaction
+import com.f3401pal.playground.jg.repository.db.AppDatabase
+import com.f3401pal.playground.jg.repository.db.entity.Transaction
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton

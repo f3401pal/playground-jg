@@ -1,4 +1,4 @@
-package com.f3401pal.playground.jg.fragment
+package com.f3401pal.playground.jg.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,11 +14,11 @@ import com.f3401pal.playground.jg.R
 import com.f3401pal.playground.jg.databinding.FragmentTransactionListBinding
 import com.f3401pal.playground.jg.databinding.ItemDaliyTransactionBinding
 import com.f3401pal.playground.jg.databinding.ItemTransactionBinding
-import com.f3401pal.playground.jg.db.entity.Transaction
-import com.f3401pal.playground.jg.db.entity.displayAmount
+import com.f3401pal.playground.jg.domain.TransactionListViewModel
+import com.f3401pal.playground.jg.domain.model.DaliyTransactions
 import com.f3401pal.playground.jg.ext.collectAfterCreated
-import com.f3401pal.playground.jg.model.TransactionListViewModel
-import com.f3401pal.playground.jg.usecase.DaliyTransactions
+import com.f3401pal.playground.jg.repository.db.entity.Transaction
+import com.f3401pal.playground.jg.repository.db.entity.displayAmount
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 

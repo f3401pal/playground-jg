@@ -1,11 +1,8 @@
 package com.f3401pal.playground.jg.di
 
 import android.content.Context
-import com.f3401pal.playground.jg.db.AppDatabase
+import com.f3401pal.playground.jg.repository.db.AppDatabase
 import com.f3401pal.playground.jg.ext.CoroutineDispatcherProvider
-import com.f3401pal.playground.jg.repository.TransactionRepository
-import com.f3401pal.playground.jg.repository.TransactionRepositoryImpl
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

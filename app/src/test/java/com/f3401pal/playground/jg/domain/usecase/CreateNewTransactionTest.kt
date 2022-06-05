@@ -1,14 +1,14 @@
-package com.f3401pal.playground.jg.usecase
+package com.f3401pal.playground.jg.domain.usecase
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.cash.turbine.test
+import com.f3401pal.playground.jg.domain.model.TransactionInputValidationResult
+import com.f3401pal.playground.jg.domain.model.TransactionType
 import com.f3401pal.playground.jg.ext.CoroutineDispatcherProvider
 import com.f3401pal.playground.jg.mock.TestCoroutineDispatcherProvider
 import com.f3401pal.playground.jg.mock.mockkRelaxed
 import com.f3401pal.playground.jg.mock.verifyNoInteraction
-import com.f3401pal.playground.jg.model.TransactionType
 import com.f3401pal.playground.jg.repository.TransactionRepository
-import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking

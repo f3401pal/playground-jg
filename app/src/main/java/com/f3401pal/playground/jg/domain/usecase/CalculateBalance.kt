@@ -1,8 +1,9 @@
-package com.f3401pal.playground.jg.usecase
+package com.f3401pal.playground.jg.domain.usecase
 
-import com.f3401pal.playground.jg.db.entity.Transaction
-import com.f3401pal.playground.jg.db.entity.type
-import com.f3401pal.playground.jg.model.TransactionType
+import com.f3401pal.playground.jg.domain.model.BalanceSummary
+import com.f3401pal.playground.jg.domain.model.TransactionType
+import com.f3401pal.playground.jg.repository.db.entity.Transaction
+import com.f3401pal.playground.jg.repository.db.entity.type
 import javax.inject.Inject
 import kotlin.math.absoluteValue
 
@@ -21,11 +22,4 @@ class CalculateBalance @Inject constructor() {
             totalExpense, totalIncome
         )
     }
-}
-
-data class BalanceSummary(
-    val totalExpense: Float,
-    val totalIncome: Float
-) {
-    val balance: Float = totalIncome - totalExpense
 }

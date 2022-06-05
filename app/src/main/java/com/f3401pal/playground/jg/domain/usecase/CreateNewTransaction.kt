@@ -1,10 +1,11 @@
-package com.f3401pal.playground.jg.usecase
+package com.f3401pal.playground.jg.domain.usecase
 
 import androidx.core.text.isDigitsOnly
-import com.f3401pal.playground.jg.db.entity.Transaction
+import com.f3401pal.playground.jg.domain.model.TransactionInputValidationResult
+import com.f3401pal.playground.jg.domain.model.TransactionType
 import com.f3401pal.playground.jg.ext.CoroutineDispatcherProvider
-import com.f3401pal.playground.jg.model.TransactionType
 import com.f3401pal.playground.jg.repository.TransactionRepository
+import com.f3401pal.playground.jg.repository.db.entity.Transaction
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import timber.log.Timber
@@ -45,8 +46,4 @@ class CreateNewTransaction @Inject constructor(
             else -> TransactionInputValidationResult.Clear
         }
     }
-}
-
-enum class TransactionInputValidationResult {
-    EmptyDescription, EmptyAmount, InvalidAmount, Clear
 }

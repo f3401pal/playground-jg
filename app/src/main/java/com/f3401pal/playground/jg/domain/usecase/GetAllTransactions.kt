@@ -1,13 +1,10 @@
-package com.f3401pal.playground.jg.usecase
+package com.f3401pal.playground.jg.domain.usecase
 
-import com.f3401pal.playground.jg.db.entity.Transaction
-import com.f3401pal.playground.jg.db.entity.date
 import com.f3401pal.playground.jg.ext.CoroutineDispatcherProvider
 import com.f3401pal.playground.jg.repository.TransactionRepository
+import com.f3401pal.playground.jg.repository.db.entity.Transaction
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
-import java.time.LocalDate
 import javax.inject.Inject
 
 class GetAllTransactions @Inject constructor(

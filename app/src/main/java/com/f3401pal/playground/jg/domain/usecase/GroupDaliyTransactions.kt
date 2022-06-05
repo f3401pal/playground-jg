@@ -1,8 +1,8 @@
-package com.f3401pal.playground.jg.usecase
+package com.f3401pal.playground.jg.domain.usecase
 
-import com.f3401pal.playground.jg.db.entity.Transaction
-import com.f3401pal.playground.jg.db.entity.date
-import java.time.LocalDate
+import com.f3401pal.playground.jg.domain.model.DaliyTransactions
+import com.f3401pal.playground.jg.repository.db.entity.Transaction
+import com.f3401pal.playground.jg.repository.db.entity.date
 import javax.inject.Inject
 
 class GroupDaliyTransactions @Inject constructor() {
@@ -17,8 +17,3 @@ class GroupDaliyTransactions @Inject constructor() {
     }
 
 }
-
-data class DaliyTransactions(
-    val localDate: LocalDate,
-    val transactions: List<Transaction>
-)

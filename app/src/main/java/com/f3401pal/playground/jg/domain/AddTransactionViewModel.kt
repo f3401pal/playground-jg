@@ -1,8 +1,9 @@
-package com.f3401pal.playground.jg.model
+package com.f3401pal.playground.jg.domain
 
 import androidx.lifecycle.ViewModel
-import com.f3401pal.playground.jg.usecase.CreateNewTransaction
-import com.f3401pal.playground.jg.usecase.TransactionInputValidationResult
+import com.f3401pal.playground.jg.domain.model.TransactionInputValidationResult
+import com.f3401pal.playground.jg.domain.model.TransactionType
+import com.f3401pal.playground.jg.domain.usecase.CreateNewTransaction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import timber.log.Timber
@@ -24,8 +25,4 @@ class AddTransactionViewModel @Inject constructor(
         )
     }
 
-}
-
-enum class TransactionType {
-    Income, Expense
 }

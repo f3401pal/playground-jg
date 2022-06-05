@@ -1,15 +1,13 @@
-package com.f3401pal.playground.jg.model
+package com.f3401pal.playground.jg.domain
 
 import androidx.lifecycle.ViewModel
-import com.f3401pal.playground.jg.db.entity.Transaction
+import com.f3401pal.playground.jg.domain.usecase.CalculateBalance
+import com.f3401pal.playground.jg.domain.usecase.GetAllTransactions
+import com.f3401pal.playground.jg.domain.usecase.GroupDaliyTransactions
 import com.f3401pal.playground.jg.ext.CoroutineDispatcherProvider
-import com.f3401pal.playground.jg.usecase.CalculateBalance
-import com.f3401pal.playground.jg.usecase.GetAllTransactions
-import com.f3401pal.playground.jg.usecase.GroupDaliyTransactions
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
-import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
