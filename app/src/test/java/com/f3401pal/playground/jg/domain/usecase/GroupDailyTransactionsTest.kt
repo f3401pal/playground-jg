@@ -8,7 +8,7 @@ import org.junit.runner.RunWith
 import java.time.LocalDateTime
 
 @RunWith(AndroidJUnit4::class)
-class GroupDaliyTransactionsTest {
+class GroupDailyTransactionsTest {
 
     private val subject = GroupDaliyTransactions()
 

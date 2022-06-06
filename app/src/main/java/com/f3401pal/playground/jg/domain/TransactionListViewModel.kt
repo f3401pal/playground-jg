@@ -14,15 +14,19 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * shared view model for transaction list and balance summary
+ */
 @HiltViewModel
 class TransactionListViewModel @Inject constructor(
     getAllTransactions: GetAllTransactions,
-    private val groupDaliyTransactions: GroupDaliyTransactions,
+    private val groupDailyTransactions: GroupDaliyTransactions,
     private val calculateBalance: CalculateBalance,
     private val deleteTransaction: DeleteTransaction,
-    private val coroutineDispatcherProvider: CoroutineDispatcherProvider
+    coroutineDispatcherProvider: CoroutineDispatcherProvider
 ) : ViewModel() {
 
+    // share all transaction flow with balanceSummary and dailyTransactions so we do not need to keep 2 separated flows for each
     private val allTransactions = getAllTransactions.execute()
 
     fun deleteTransaction(transaction: Transaction) {
@@ -35,7 +39,7 @@ class TransactionListViewModel @Inject constructor(
         .map { calculateBalance.execute(it) }
         .flowOn(coroutineDispatcherProvider.background)
 
-    val daliyTransactions = allTransactions
-        .map { groupDaliyTransactions.execute(it) }
+    val dailyTransactions = allTransactions
+        .map { groupDailyTransactions.execute(it) }
         .flowOn(coroutineDispatcherProvider.background)
 }

@@ -87,6 +87,18 @@ class CreateNewTransactionTest {
     }
 
     @Test
+    fun `given zero amount, the result flow emit InvalidAmount`() = runBlocking {
+        subject.execute(
+            TransactionType.Income,
+            "test",
+            "0"
+        ).test {
+            assertEquals(TransactionInputValidationResult.InvalidAmount, expectMostRecentItem())
+            cancelAndConsumeRemainingEvents()
+        }
+    }
+
+    @Test
     fun `given valid inputs, the result flow emit Clear`() = runBlocking {
         subject.execute(
             TransactionType.Income,

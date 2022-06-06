@@ -6,6 +6,9 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
+/**
+ * interface to abstract the interactions to the transaction from the implementation
+ */
 interface TransactionRepository {
 
     fun deleteTransaction(transaction: Transaction): Boolean
@@ -14,6 +17,9 @@ interface TransactionRepository {
 
 }
 
+/**
+ * Local DB implementation of the TransactionRepository
+ */
 @Singleton
 class TransactionRepositoryImpl @Inject constructor(
     db: AppDatabase

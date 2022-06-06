@@ -7,6 +7,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
+/**
+ * query all transaction from repository
+ */
 class GetAllTransactions @Inject constructor(
     private val transactionRepository: TransactionRepository,
     private val coroutineDispatcherProvider: CoroutineDispatcherProvider

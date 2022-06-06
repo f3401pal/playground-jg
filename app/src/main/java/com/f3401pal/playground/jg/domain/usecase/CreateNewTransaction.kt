@@ -11,6 +11,11 @@ import kotlinx.coroutines.flow.flowOn
 import timber.log.Timber
 import javax.inject.Inject
 
+/**
+ * intend to save a new transaction into the repository
+ * - validate inputs and emit error on invalidate inputs
+ * - set negative or positive amount based on the transaction type
+ */
 class CreateNewTransaction @Inject constructor(
     private val transactionRepository: TransactionRepository,
     private val coroutineDispatcherProvider: CoroutineDispatcherProvider
@@ -42,7 +47,7 @@ class CreateNewTransaction @Inject constructor(
         return when {
             description.isNullOrEmpty() -> TransactionInputValidationResult.EmptyDescription
             amount.isNullOrEmpty() -> TransactionInputValidationResult.EmptyAmount
-            !amount.isDigitsOnly() -> TransactionInputValidationResult.InvalidAmount
+            !amount.isDigitsOnly() || amount.toFloat() == 0f -> TransactionInputValidationResult.InvalidAmount
             else -> TransactionInputValidationResult.Clear
         }
     }

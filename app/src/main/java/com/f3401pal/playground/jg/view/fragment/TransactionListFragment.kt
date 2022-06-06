@@ -15,7 +15,7 @@ import com.f3401pal.playground.jg.databinding.FragmentTransactionListBinding
 import com.f3401pal.playground.jg.databinding.ItemDaliyTransactionBinding
 import com.f3401pal.playground.jg.databinding.ItemTransactionBinding
 import com.f3401pal.playground.jg.domain.TransactionListViewModel
-import com.f3401pal.playground.jg.domain.model.DaliyTransactions
+import com.f3401pal.playground.jg.domain.model.DailyTransactions
 import com.f3401pal.playground.jg.ext.collectAfterCreated
 import com.f3401pal.playground.jg.repository.db.entity.Transaction
 import com.f3401pal.playground.jg.repository.db.entity.displayAmount
@@ -26,6 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class TransactionListFragment : Fragment() {
 
+    // shared with BalanceSummaryFragment
     private val viewModel: TransactionListViewModel by activityViewModels()
     private lateinit var viewBinding: FragmentTransactionListBinding
 
@@ -52,34 +53,40 @@ class TransactionListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = DaliyTransactionListAdapter(transactionActionHandler)
+        val adapter = DailyTransactionListAdapter(transactionActionHandler)
         viewBinding.transactionList.adapter = adapter
-        viewModel.daliyTransactions.collectAfterCreated(viewLifecycleOwner) {
+        viewModel.dailyTransactions.collectAfterCreated(viewLifecycleOwner) {
             adapter.submitList(it)
         }
     }
 }
 
-interface TransactionActionHandler {
+private interface TransactionActionHandler {
     fun onDelete(transaction: Transaction)
 }
 
-private class DaliyTransactionListAdapter(
+/**
+ * adapter for daily transaction card list
+ */
+private class DailyTransactionListAdapter(
     private val transactionActionHandler: TransactionActionHandler
-) : ListAdapter<DaliyTransactions, DaliyTransactionViewHolder>(DaliyTransactionDiffCallback) {
+) : ListAdapter<DailyTransactions, DailyTransactionViewHolder>(DailyTransactionDiffCallback) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DaliyTransactionViewHolder {
-        return DaliyTransactionViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DailyTransactionViewHolder {
+        return DailyTransactionViewHolder(
             DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_daliy_transaction, parent,false),
             transactionActionHandler
         )
     }
 
-    override fun onBindViewHolder(holder: DaliyTransactionViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DailyTransactionViewHolder, position: Int) {
         holder.bind(currentList[position])
     }
 }
 
+/**
+ * adapter for individual transaction list on a specific date
+ */
 private class TransactionListAdapter(
     private val transactionActionHandler: TransactionActionHandler
 ) : ListAdapter<Transaction, TransactionViewHolder>(TransactionDiffCallback) {
@@ -95,7 +102,10 @@ private class TransactionListAdapter(
     }
 }
 
-private class DaliyTransactionViewHolder(
+/**
+ * daily transaction card
+ */
+private class DailyTransactionViewHolder(
     private val viewBinding: ItemDaliyTransactionBinding,
     transactionActionHandler: TransactionActionHandler
 ) : RecyclerView.ViewHolder(viewBinding.root) {
@@ -107,13 +117,16 @@ private class DaliyTransactionViewHolder(
         viewBinding.daliyTransactionList.addItemDecoration(MaterialDividerItemDecoration(itemView.context, MaterialDividerItemDecoration.VERTICAL))
     }
 
-    fun bind(daliyTransactions: DaliyTransactions) {
-        viewBinding.dateLabel.text = daliyTransactions.localDate.toString()
-        adapter.submitList(daliyTransactions.transactions)
+    fun bind(dailyTransactions: DailyTransactions) {
+        viewBinding.dateLabel.text = dailyTransactions.localDate.toString()
+        adapter.submitList(dailyTransactions.transactions)
     }
 
 }
 
+/**
+ * individual transaction
+ */
 private class TransactionViewHolder(
     private val viewBinding: ItemTransactionBinding
 ) : RecyclerView.ViewHolder(viewBinding.root) {
@@ -126,13 +139,13 @@ private class TransactionViewHolder(
 
 }
 
-private object DaliyTransactionDiffCallback : DiffUtil.ItemCallback<DaliyTransactions>() {
+private object DailyTransactionDiffCallback : DiffUtil.ItemCallback<DailyTransactions>() {
 
-    override fun areItemsTheSame(oldItem: DaliyTransactions, newItem: DaliyTransactions): Boolean {
+    override fun areItemsTheSame(oldItem: DailyTransactions, newItem: DailyTransactions): Boolean {
         return oldItem.localDate == newItem.localDate
     }
 
-    override fun areContentsTheSame(oldItem: DaliyTransactions, newItem: DaliyTransactions): Boolean =
+    override fun areContentsTheSame(oldItem: DailyTransactions, newItem: DailyTransactions): Boolean =
         oldItem.transactions.size == newItem.transactions.size
 
 }

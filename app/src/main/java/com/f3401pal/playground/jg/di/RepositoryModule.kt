@@ -13,6 +13,9 @@ import dagger.hilt.components.SingletonComponent
 abstract class RepositoryModule {
 
 
+    /**
+     * binding a local DB implementation of the TransactionRepository
+     */
     @Binds
     abstract fun bindTransactionRepository(imp: TransactionRepositoryImpl): TransactionRepository
 

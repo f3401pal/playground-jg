@@ -7,6 +7,9 @@ import com.f3401pal.playground.jg.repository.db.entity.type
 import javax.inject.Inject
 import kotlin.math.absoluteValue
 
+/**
+ * calculate balances based on a given list of transactions
+ */
 class CalculateBalance @Inject constructor() {
 
     fun execute(transactions: List<Transaction>): BalanceSummary {

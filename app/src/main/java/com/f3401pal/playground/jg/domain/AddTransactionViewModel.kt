@@ -9,6 +9,9 @@ import kotlinx.coroutines.flow.Flow
 import timber.log.Timber
 import javax.inject.Inject
 
+/**
+ * view model used by the add transaction bottom sheet
+ */
 @HiltViewModel
 class AddTransactionViewModel @Inject constructor(
     private val createNewTransaction: CreateNewTransaction
