@@ -2,8 +2,8 @@ package com.f3401pal.playground.jg.domain.usecase
 
 import com.f3401pal.playground.jg.domain.model.BalanceSummary
 import com.f3401pal.playground.jg.domain.model.TransactionType
+import com.f3401pal.playground.jg.ext.type
 import com.f3401pal.playground.jg.repository.db.entity.Transaction
-import com.f3401pal.playground.jg.repository.db.entity.type
 import javax.inject.Inject
 import kotlin.math.absoluteValue
 

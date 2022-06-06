@@ -1,8 +1,8 @@
 package com.f3401pal.playground.jg.domain.usecase
 
 import com.f3401pal.playground.jg.domain.model.DailyTransactions
+import com.f3401pal.playground.jg.ext.date
 import com.f3401pal.playground.jg.repository.db.entity.Transaction
-import com.f3401pal.playground.jg.repository.db.entity.date
 import javax.inject.Inject
 
 /**

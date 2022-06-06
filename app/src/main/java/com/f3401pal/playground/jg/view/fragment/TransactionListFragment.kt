@@ -17,8 +17,8 @@ import com.f3401pal.playground.jg.databinding.ItemTransactionBinding
 import com.f3401pal.playground.jg.domain.TransactionListViewModel
 import com.f3401pal.playground.jg.domain.model.DailyTransactions
 import com.f3401pal.playground.jg.ext.collectAfterCreated
+import com.f3401pal.playground.jg.ext.displayAmount
 import com.f3401pal.playground.jg.repository.db.entity.Transaction
-import com.f3401pal.playground.jg.repository.db.entity.displayAmount
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
