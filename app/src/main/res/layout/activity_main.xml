@@ -24,16 +24,6 @@
                 android:name="com.f3401pal.playground.jg.view.fragment.BalanceSummaryFragment"
                 />
 
-            <Button
-                android:id="@+id/actionDelete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginHorizontal="8dp"
-                android:text="@string/action_delete"
-                app:icon="@drawable/ic_baseline_delete_24"
-                />
-
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.fragment.app.FragmentContainerView

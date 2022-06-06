@@ -17,4 +17,7 @@
     <string name="label_expenses">Expenses</string>
     <string name="label_income">Income</string>
     <string name="label_balance">Balance</string>
+
+    <string name="title_delete_transaction">Delete Transaction</string>
+    <string name="msg_delete_transaction">Do you want to delete transaction \"%1$s\" permanently?</string>
 </resources>

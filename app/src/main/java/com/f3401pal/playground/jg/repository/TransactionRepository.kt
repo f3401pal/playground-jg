@@ -8,6 +8,7 @@ import javax.inject.Singleton
 
 interface TransactionRepository {
 
+    fun deleteTransaction(transaction: Transaction): Boolean
     fun addNewTransaction(transaction: Transaction)
     fun getTransactions(): Flow<List<Transaction>>
 
@@ -19,6 +20,10 @@ class TransactionRepositoryImpl @Inject constructor(
 ) : TransactionRepository {
 
     private val dao = db.transactionDao()
+
+    override fun deleteTransaction(transaction: Transaction): Boolean {
+        return dao.deleteTransaction(transaction) > 0
+    }
 
     override fun addNewTransaction(transaction: Transaction) {
         dao.insertTransaction(transaction)

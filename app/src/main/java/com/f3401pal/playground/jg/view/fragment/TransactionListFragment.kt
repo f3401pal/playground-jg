@@ -19,6 +19,7 @@ import com.f3401pal.playground.jg.domain.model.DaliyTransactions
 import com.f3401pal.playground.jg.ext.collectAfterCreated
 import com.f3401pal.playground.jg.repository.db.entity.Transaction
 import com.f3401pal.playground.jg.repository.db.entity.displayAmount
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,6 +28,17 @@ class TransactionListFragment : Fragment() {
 
     private val viewModel: TransactionListViewModel by activityViewModels()
     private lateinit var viewBinding: FragmentTransactionListBinding
+
+    private val transactionActionHandler = object : TransactionActionHandler {
+        override fun onDelete(transaction: Transaction) {
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.title_delete_transaction)
+                .setMessage(getString(R.string.msg_delete_transaction, transaction.description))
+                .setNegativeButton(android.R.string.cancel) { dialog, _ -> dialog.dismiss() }
+                .setPositiveButton(R.string.action_delete) { _, _ -> viewModel.deleteTransaction(transaction) }
+                .show()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,7 +52,7 @@ class TransactionListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = DaliyTransactionListAdapter()
+        val adapter = DaliyTransactionListAdapter(transactionActionHandler)
         viewBinding.transactionList.adapter = adapter
         viewModel.daliyTransactions.collectAfterCreated(viewLifecycleOwner) {
             adapter.submitList(it)
@@ -48,11 +60,18 @@ class TransactionListFragment : Fragment() {
     }
 }
 
-private class DaliyTransactionListAdapter : ListAdapter<DaliyTransactions, DaliyTransactionViewHolder>(DaliyTransactionDiffCallback) {
+interface TransactionActionHandler {
+    fun onDelete(transaction: Transaction)
+}
+
+private class DaliyTransactionListAdapter(
+    private val transactionActionHandler: TransactionActionHandler
+) : ListAdapter<DaliyTransactions, DaliyTransactionViewHolder>(DaliyTransactionDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DaliyTransactionViewHolder {
         return DaliyTransactionViewHolder(
-            DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_daliy_transaction, parent,false)
+            DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_daliy_transaction, parent,false),
+            transactionActionHandler
         )
     }
 
@@ -61,7 +80,9 @@ private class DaliyTransactionListAdapter : ListAdapter<DaliyTransactions, Daliy
     }
 }
 
-private class TransactionListAdapter : ListAdapter<Transaction, TransactionViewHolder>(TransactionDiffCallback) {
+private class TransactionListAdapter(
+    private val transactionActionHandler: TransactionActionHandler
+) : ListAdapter<Transaction, TransactionViewHolder>(TransactionDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
         return TransactionViewHolder(
@@ -70,15 +91,16 @@ private class TransactionListAdapter : ListAdapter<Transaction, TransactionViewH
     }
 
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
-        holder.bind(currentList[position])
+        holder.bind(currentList[position], transactionActionHandler)
     }
 }
 
 private class DaliyTransactionViewHolder(
-    private val viewBinding: ItemDaliyTransactionBinding
+    private val viewBinding: ItemDaliyTransactionBinding,
+    transactionActionHandler: TransactionActionHandler
 ) : RecyclerView.ViewHolder(viewBinding.root) {
 
-    private val adapter = TransactionListAdapter()
+    private val adapter = TransactionListAdapter(transactionActionHandler)
 
     init {
         viewBinding.daliyTransactionList.adapter = adapter
@@ -96,9 +118,10 @@ private class TransactionViewHolder(
     private val viewBinding: ItemTransactionBinding
 ) : RecyclerView.ViewHolder(viewBinding.root) {
 
-    fun bind(transaction: Transaction) {
+    fun bind(transaction: Transaction, transactionActionHandler: TransactionActionHandler) {
         viewBinding.description.text = transaction.description
         viewBinding.amount.text = transaction.displayAmount()
+        viewBinding.actionDelete.setOnClickListener { transactionActionHandler.onDelete(transaction) }
     }
 
 }
