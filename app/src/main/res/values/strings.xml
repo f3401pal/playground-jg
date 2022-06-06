@@ -8,6 +8,7 @@
     <string name="hint_description">Description</string>
     <string name="hint_amount">Amount</string>
     <string name="action_save">Save</string>
+    <string name="action_delete">Delete</string>
 
     <string name="error_empty_description">Description is required</string>
     <string name="error_zero_amount">Cannot save zero amount</string>
