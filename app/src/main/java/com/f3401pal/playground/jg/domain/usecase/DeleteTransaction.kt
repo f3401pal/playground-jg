@@ -15,6 +15,6 @@ class DeleteTransaction @Inject constructor(
 ) {
 
     suspend fun execute(transaction: Transaction) = withContext(coroutineDispatcherProvider.io) {
-        transactionRepository.deleteTransaction(transaction)
+        if(!transactionRepository.deleteTransaction(transaction)) throw RuntimeException("Delete transaction failed")
     }
 }

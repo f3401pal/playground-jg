@@ -21,6 +21,7 @@ import com.f3401pal.playground.jg.ext.displayAmount
 import com.f3401pal.playground.jg.repository.db.entity.Transaction
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.divider.MaterialDividerItemDecoration
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -57,6 +58,9 @@ class TransactionListFragment : Fragment() {
         viewBinding.transactionList.adapter = adapter
         viewModel.dailyTransactions.collectAfterCreated(viewLifecycleOwner) {
             adapter.submitList(it)
+        }
+        viewModel.error.collectAfterCreated(viewLifecycleOwner) {
+            Snackbar.make(viewBinding.root, it.message ?: "Unknown error", Snackbar.LENGTH_LONG).show()
         }
     }
 }

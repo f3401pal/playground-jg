@@ -9,6 +9,7 @@ import com.f3401pal.playground.jg.domain.usecase.GroupDaliyTransactions
 import com.f3401pal.playground.jg.ext.CoroutineDispatcherProvider
 import com.f3401pal.playground.jg.repository.db.entity.Transaction
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -26,12 +27,22 @@ class TransactionListViewModel @Inject constructor(
     coroutineDispatcherProvider: CoroutineDispatcherProvider
 ) : ViewModel() {
 
+    // empty flow with
+    // 0 buffer: if view does not subscribe(gone), ignore the error
+    // 0 replay: error does not stay when view is recreated
+    private val _error = MutableSharedFlow<Throwable>()
+    val error = _error
+
     // share all transaction flow with balanceSummary and dailyTransactions so we do not need to keep 2 separated flows for each
     private val allTransactions = getAllTransactions.execute()
 
     fun deleteTransaction(transaction: Transaction) {
         viewModelScope.launch {
-            deleteTransaction.execute(transaction)
+            try {
+                deleteTransaction.execute(transaction)
+            } catch (e: Exception) {
+                _error.emit(e)
+            }
         }
     }
 
