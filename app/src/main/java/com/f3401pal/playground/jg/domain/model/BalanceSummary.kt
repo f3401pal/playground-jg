@@ -8,4 +8,5 @@ data class BalanceSummary(
     val totalIncome: Float
 ) {
     val balance: Float = totalIncome - totalExpense
+    val balancePercentage = ((totalExpense / totalIncome) * 100).toInt()
 }

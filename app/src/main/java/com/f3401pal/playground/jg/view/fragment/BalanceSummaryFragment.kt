@@ -38,8 +38,8 @@ class BalanceSummaryFragment : Fragment() {
             viewBinding.expenseTotal.text = it.totalExpense.toDollarFormat()
             viewBinding.incomeTotal.text = it.totalIncome.toDollarFormat()
             viewBinding.balance.text = it.balance.toDollarFormat()
-            viewBinding.balanceProgress.setProgressCompat(it.totalExpense.toInt(), true)
-            viewBinding.balanceProgress.max = it.totalIncome.toInt()
+
+            viewBinding.balanceProgress.setProgressCompat(it.balancePercentage, true)
         }
     }
 }
