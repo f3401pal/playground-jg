@@ -16,7 +16,7 @@ interface TransactionRepository {
 
     fun deleteTransaction(transaction: Transaction): Boolean
     fun addNewTransaction(transaction: Transaction)
-    fun getTransactions(): Flow<List<Transaction>>
+    fun getTransactions(limit: Long): Flow<List<Transaction>>
 
     fun getBalanceSummery(): Flow<BalanceSummary>
 }
@@ -39,8 +39,8 @@ class TransactionRepositoryImpl @Inject constructor(
         dao.insertTransaction(transaction)
     }
 
-    override fun getTransactions(): Flow<List<Transaction>> {
-        return dao.queryTransactions()
+    override fun getTransactions(limit: Long): Flow<List<Transaction>> {
+        return dao.queryTransactions(limit)
     }
 
     override fun getBalanceSummery(): Flow<BalanceSummary> {

@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AbsListView.OnScrollListener.SCROLL_STATE_IDLE
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.f3401pal.playground.jg.R
@@ -30,6 +32,20 @@ class TransactionListFragment : Fragment() {
     // shared with BalanceSummaryFragment
     private val viewModel: TransactionListViewModel by viewModels()
     private lateinit var viewBinding: FragmentTransactionListBinding
+
+    private val pagingScrollListener = object : RecyclerView.OnScrollListener() {
+
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            val totalSize = recyclerView.adapter?.itemCount ?: 0
+            val lastVisiblePosition = (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+            val shouldPaging = lastVisiblePosition > (totalSize * .7f)
+            if(shouldPaging && newState == SCROLL_STATE_IDLE) {
+                recyclerView.removeOnScrollListener(this)
+                viewModel.nextPage()
+            }
+        }
+    }
 
     private val transactionActionHandler = object : TransactionActionHandler {
         override fun onDelete(transaction: Transaction) {
@@ -57,7 +73,8 @@ class TransactionListFragment : Fragment() {
         val adapter = DailyTransactionListAdapter(transactionActionHandler)
         viewBinding.transactionList.adapter = adapter
         viewModel.dailyTransactions.collectAfterCreated(viewLifecycleOwner) {
-            adapter.submitList(it)
+            adapter.submitList(it.dailyTransactions)
+            if(it.hasNextPage) viewBinding.transactionList.addOnScrollListener(pagingScrollListener)
         }
         viewModel.error.collectAfterCreated(viewLifecycleOwner) {
             Snackbar.make(viewBinding.root, it.message ?: "Unknown error", Snackbar.LENGTH_LONG).show()

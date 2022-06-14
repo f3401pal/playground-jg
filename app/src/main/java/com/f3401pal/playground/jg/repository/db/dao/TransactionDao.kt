@@ -15,8 +15,8 @@ interface TransactionDao {
     fun insertTransaction(transaction: Transaction)
 
     @androidx.room.Transaction
-    @Query("SELECT * FROM `transaction` ORDER BY timestamp DESC")
-    fun queryTransactions(): Flow<List<Transaction>>
+    @Query("SELECT * FROM `transaction` ORDER BY timestamp DESC LIMIT :limit")
+    fun queryTransactions(limit: Long): Flow<List<Transaction>>
 
     @androidx.room.Transaction
     @Query("SELECT SUM(amount) FROM `transaction` WHERE amount > 0")

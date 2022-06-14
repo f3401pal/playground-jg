@@ -8,10 +8,9 @@ import com.f3401pal.playground.jg.domain.usecase.GroupDaliyTransactions
 import com.f3401pal.playground.jg.ext.CoroutineDispatcherProvider
 import com.f3401pal.playground.jg.repository.db.entity.Transaction
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -31,8 +30,18 @@ class TransactionListViewModel @Inject constructor(
     private val _error = MutableSharedFlow<Throwable>()
     val error = _error
 
-    // share all transaction flow with balanceSummary and dailyTransactions so we do not need to keep 2 separated flows for each
-    private val allTransactions = getAllTransactions.execute()
+    private val page = MutableStateFlow(1)
+    private val allTransactions = page.flatMapLatest { page ->
+        getAllTransactions.execute(page)
+    }
+
+    fun nextPage() {
+        viewModelScope.launch {
+            val nextPage = page.value + 1
+            page.emit(nextPage)
+            Timber.d("next page $nextPage")
+        }
+    }
 
     fun deleteTransaction(transaction: Transaction) {
         viewModelScope.launch {
