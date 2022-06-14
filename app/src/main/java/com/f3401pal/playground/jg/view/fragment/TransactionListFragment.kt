@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -28,7 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class TransactionListFragment : Fragment() {
 
     // shared with BalanceSummaryFragment
-    private val viewModel: TransactionListViewModel by activityViewModels()
+    private val viewModel: TransactionListViewModel by viewModels()
     private lateinit var viewBinding: FragmentTransactionListBinding
 
     private val transactionActionHandler = object : TransactionActionHandler {

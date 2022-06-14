@@ -2,7 +2,6 @@ package com.f3401pal.playground.jg.domain
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.f3401pal.playground.jg.domain.usecase.CalculateBalance
 import com.f3401pal.playground.jg.domain.usecase.DeleteTransaction
 import com.f3401pal.playground.jg.domain.usecase.GetAllTransactions
 import com.f3401pal.playground.jg.domain.usecase.GroupDaliyTransactions
@@ -22,7 +21,6 @@ import javax.inject.Inject
 class TransactionListViewModel @Inject constructor(
     getAllTransactions: GetAllTransactions,
     private val groupDailyTransactions: GroupDaliyTransactions,
-    private val calculateBalance: CalculateBalance,
     private val deleteTransaction: DeleteTransaction,
     coroutineDispatcherProvider: CoroutineDispatcherProvider
 ) : ViewModel() {
@@ -45,10 +43,6 @@ class TransactionListViewModel @Inject constructor(
             }
         }
     }
-
-    val balanceSummary = allTransactions
-        .map { calculateBalance.execute(it) }
-        .flowOn(coroutineDispatcherProvider.background)
 
     val dailyTransactions = allTransactions
         .map { groupDailyTransactions.execute(it) }

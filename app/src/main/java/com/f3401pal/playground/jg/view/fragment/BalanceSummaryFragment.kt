@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.f3401pal.playground.jg.R
 import com.f3401pal.playground.jg.databinding.FragmentBalanceSummaryBinding
-import com.f3401pal.playground.jg.domain.TransactionListViewModel
+import com.f3401pal.playground.jg.domain.BalanceSummaryViewModel
 import com.f3401pal.playground.jg.ext.collectAfterCreated
 import com.f3401pal.playground.jg.ext.toDollarFormat
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class BalanceSummaryFragment : Fragment() {
 
     // shared with TransactionListFragment
-    private val viewModel: TransactionListViewModel by activityViewModels()
+    private val viewModel: BalanceSummaryViewModel by viewModels()
     private lateinit var viewBinding: FragmentBalanceSummaryBinding
 
     override fun onCreateView(

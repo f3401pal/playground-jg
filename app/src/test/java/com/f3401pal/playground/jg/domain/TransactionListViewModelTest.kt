@@ -4,7 +4,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.cash.turbine.test
 import com.f3401pal.playground.jg.domain.model.BalanceSummary
 import com.f3401pal.playground.jg.domain.model.DailyTransactions
-import com.f3401pal.playground.jg.domain.usecase.CalculateBalance
+import com.f3401pal.playground.jg.domain.usecase.GetBalance
 import com.f3401pal.playground.jg.domain.usecase.DeleteTransaction
 import com.f3401pal.playground.jg.domain.usecase.GetAllTransactions
 import com.f3401pal.playground.jg.domain.usecase.GroupDaliyTransactions
@@ -40,7 +40,7 @@ class TransactionListViewModelTest {
             execute(allTransactions)
         } returns dailyTransactions
     }
-    private val calculateBalance: CalculateBalance = mockkRelaxed<CalculateBalance>().apply {
+    private val getBalance: GetBalance = mockkRelaxed<GetBalance>().apply {
         every {
             execute(allTransactions)
         } returns balanceSummary
@@ -49,7 +49,7 @@ class TransactionListViewModelTest {
     private val coroutineDispatcherProvider = TestCoroutineDispatcherProvider()
 
     private val subject = TransactionListViewModel(
-        getAllTransactions, groupDailyTransactions, calculateBalance, deleteTransaction, coroutineDispatcherProvider
+        getAllTransactions, groupDailyTransactions, getBalance, deleteTransaction, coroutineDispatcherProvider
     )
 
     @Test

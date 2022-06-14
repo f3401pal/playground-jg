@@ -1,10 +1,13 @@
 package com.f3401pal.playground.jg.repository
 
+import com.f3401pal.playground.jg.domain.model.BalanceSummary
 import com.f3401pal.playground.jg.repository.db.AppDatabase
 import com.f3401pal.playground.jg.repository.db.entity.Transaction
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.math.absoluteValue
 
 /**
  * interface to abstract the interactions to the transaction from the implementation
@@ -15,6 +18,7 @@ interface TransactionRepository {
     fun addNewTransaction(transaction: Transaction)
     fun getTransactions(): Flow<List<Transaction>>
 
+    fun getBalanceSummery(): Flow<BalanceSummary>
 }
 
 /**
@@ -37,6 +41,15 @@ class TransactionRepositoryImpl @Inject constructor(
 
     override fun getTransactions(): Flow<List<Transaction>> {
         return dao.queryTransactions()
+    }
+
+    override fun getBalanceSummery(): Flow<BalanceSummary> {
+        return dao.totalIncome().combine(dao.totalExpense()) { income, expense ->
+            BalanceSummary(
+                expense?.absoluteValue ?: 0f,
+                income?.absoluteValue ?: 0f
+            )
+        }
     }
 
 

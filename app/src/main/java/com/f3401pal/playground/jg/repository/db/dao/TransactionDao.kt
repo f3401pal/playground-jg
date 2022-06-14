@@ -19,6 +19,14 @@ interface TransactionDao {
     fun queryTransactions(): Flow<List<Transaction>>
 
     @androidx.room.Transaction
+    @Query("SELECT SUM(amount) FROM `transaction` WHERE amount > 0")
+    fun totalIncome(): Flow<Float?>
+
+    @androidx.room.Transaction
+    @Query("SELECT SUM(amount) FROM `transaction` WHERE amount < 0")
+    fun totalExpense(): Flow<Float?>
+
+    @androidx.room.Transaction
     @Delete
     fun deleteTransaction(transaction: Transaction): Int
 }
