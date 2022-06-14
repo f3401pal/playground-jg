@@ -20,9 +20,13 @@ class GroupDailyTransactionsTest {
             createTestTransaction(dataTime = today),
             createTestTransaction(dataTime = yesterday)
         )
-        val result = subject.execute(transactions)
+        val transactionPagedList = TransactionPagedList(
+            transactions,
+            1
+        )
+        val result = subject.execute(transactionPagedList)
 
-        assertEquals(2, result.size)
+        assertEquals(2, result.dailyTransactions.size)
     }
 
     @Test
@@ -33,9 +37,13 @@ class GroupDailyTransactionsTest {
             createTestTransaction(dataTime = today),
             createTestTransaction(dataTime = yesterday)
         )
-        val result = subject.execute(transactions)
+        val transactionPagedList = TransactionPagedList(
+            transactions,
+            1
+        )
+        val result = subject.execute(transactionPagedList)
 
-        assertEquals(today.toLocalDate(), result.first().localDate)
-        assertEquals(yesterday.toLocalDate(), result.last().localDate)
+        assertEquals(today.toLocalDate(), result.dailyTransactions.first().localDate)
+        assertEquals(yesterday.toLocalDate(), result.dailyTransactions.last().localDate)
     }
 }

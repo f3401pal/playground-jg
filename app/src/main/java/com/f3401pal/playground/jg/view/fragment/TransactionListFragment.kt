@@ -39,7 +39,7 @@ class TransactionListFragment : Fragment() {
             super.onScrollStateChanged(recyclerView, newState)
             val totalSize = recyclerView.adapter?.itemCount ?: 0
             val lastVisiblePosition = (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-            val shouldPaging = lastVisiblePosition > (totalSize * .7f)
+            val shouldPaging = lastVisiblePosition >= (totalSize * .7f).toInt()
             if(shouldPaging && newState == SCROLL_STATE_IDLE) {
                 recyclerView.removeOnScrollListener(this)
                 viewModel.nextPage()

@@ -32,5 +32,5 @@ data class TransactionPagedList(
     val transactions: List<Transaction>,
     val page: Int
 ) {
-    val hasNextPage = transactions.size < (page * PAGE_SIZE)
+    val hasNextPage = transactions.size >= (page * PAGE_SIZE)
 }
